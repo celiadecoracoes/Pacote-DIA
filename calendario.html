@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendário de Disponibilidade — Pacote Noite</title>
+<title>Calendário de Disponibilidade — Pacote Festa Durante o Dia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -553,6 +553,120 @@
   }
   .modal-confirmar:hover{filter:brightness(1.08);}
 
+  /* ---------- MODAL: informações do Pacote Dia + escolha 40/60 pessoas ---------- */
+  .modal-pacote-caixa{
+    max-width:400px;
+    position:relative;
+  }
+  .modal-pacote-caixa .resumo-tag{ margin-bottom:14px; }
+  .modal-pacote-caixa h3{
+    font-size:1.2rem;
+    font-weight:700;
+    margin-bottom:4px;
+  }
+  .modal-pacote-data{
+    font-size:13px;
+    font-weight:600;
+    color:var(--orange);
+    text-transform:capitalize;
+    margin-bottom:10px;
+    font-family:'Space Grotesk', sans-serif;
+  }
+  .modal-pacote-slogan{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:16px;
+    line-height:1.5;
+  }
+  .modal-pacote-lista{
+    list-style:none;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px 12px;
+    margin-bottom:18px;
+  }
+  .modal-pacote-lista li{
+    font-size:12px;
+    color:var(--white);
+    padding-left:14px;
+    position:relative;
+    line-height:1.35;
+  }
+  .modal-pacote-lista li::before{
+    content:"";
+    position:absolute;
+    left:0; top:6px;
+    width:6px; height:6px;
+    transform:rotate(45deg);
+    background:linear-gradient(135deg, var(--pink), var(--orange));
+  }
+  .modal-pacote-horario{
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:16px;
+    padding:10px 12px;
+    border-radius:10px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .modal-pacote-pergunta{
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--white);
+    margin-bottom:12px;
+    font-family:'Space Grotesk', sans-serif;
+  }
+  .modal-pacote-opcoes{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .opcao-pessoas{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    padding:16px 10px;
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    border:1.5px solid rgba(255,255,255,.12);
+    cursor:pointer;
+    transition:transform .18s cubic-bezier(.2,.8,.2,1), border-color .2s ease, background .2s ease;
+    font-family:'Inter', sans-serif;
+  }
+  .opcao-pessoas:hover{
+    border-color:rgba(255,122,47,.5);
+    background:rgba(255,122,47,.08);
+    transform:translateY(-2px);
+  }
+  .opcao-pessoas:active{transform:scale(.96);}
+  .opcao-pessoas.selecionada{
+    border-color:transparent;
+    background:linear-gradient(135deg, var(--pink), var(--orange));
+  }
+  .opcao-pessoas .opcao-qtd{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--white);
+  }
+  .opcao-pessoas .opcao-preco{
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+  }
+  .opcao-pessoas.selecionada .opcao-qtd,
+  .opcao-pessoas.selecionada .opcao-preco{
+    color:var(--bg-0);
+  }
+
+  .resumo-pessoas{
+    font-size:12.5px;
+    font-weight:600;
+    color:#ffd7c2;
+    margin-bottom:10px;
+  }
+
   footer{
     text-align:center;
     margin-top:70px;
@@ -618,9 +732,9 @@
   </nav>
 
   <section class="hero">
-    <div class="eyebrow"><span class="dot"></span>Pacote Noite</div>
+    <div class="eyebrow"><span class="dot"></span>Pacote Festa Durante o Dia</div>
     <h1>Calendário de Disponibilidade</h1>
-    <p>Confira as datas livres de agosto a dezembro e fale com a gente pelo WhatsApp para reservar a sua noite mágica.</p>
+    <p>Confira as datas livres de agosto a dezembro. Escolha o dia, informe se a festa é para 40 ou 60 pessoas e fale com a gente pelo WhatsApp para garantir sua reserva.</p>
     <div class="diamond-divider"><span></span><span></span><span></span></div>
     <div class="legenda">
       <div class="legenda-item"><span class="bolinha disp"></span> Disponível</div>
@@ -633,12 +747,35 @@
 
   <div class="cartao-resumo" id="cartaoResumo">
     <button class="resumo-fechar" id="fecharResumo" aria-label="Fechar resumo" title="Fechar">✕</button>
-    <span class="resumo-tag" id="resumoTagPacote">Pacote Noite</span>
+    <span class="resumo-tag" id="resumoTagPacote">Pacote Festa Durante o Dia</span>
     <h4 id="resumoTitulo">Data selecionada</h4>
     <div class="resumo-data" id="resumoData">—</div>
+    <div class="resumo-pessoas" id="resumoPessoas"></div>
     <div class="resumo-preco-linha">
-      <span class="resumo-preco-de" id="resumoPrecoDe"></span>
       <span class="resumo-preco-por" id="resumoPrecoPor"></span>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalPacote" role="dialog" aria-modal="true" aria-label="Escolha o pacote para a data selecionada">
+    <div class="modal-caixa modal-pacote-caixa">
+      <button class="resumo-fechar" id="fecharModalPacote" aria-label="Fechar" title="Fechar">✕</button>
+      <span class="resumo-tag">Pacote Festa Durante o Dia</span>
+      <h3>Ótima escolha! ☀️</h3>
+      <div class="modal-pacote-data" id="modalPacoteData">—</div>
+      <p class="modal-pacote-slogan">Com banho de piscina — uma festa completa e inesquecível sob o sol.</p>
+      <ul class="modal-pacote-lista" id="modalPacoteLista"></ul>
+      <div class="modal-pacote-horario" id="modalPacoteHorario"></div>
+      <p class="modal-pacote-pergunta">Para quantas pessoas será a festa?</p>
+      <div class="modal-pacote-opcoes" id="modalPacoteOpcoes">
+        <button type="button" class="opcao-pessoas" data-pessoas="40">
+          <span class="opcao-qtd">40 pessoas</span>
+          <span class="opcao-preco">R$ 1.000,00</span>
+        </button>
+        <button type="button" class="opcao-pessoas" data-pessoas="60">
+          <span class="opcao-qtd">60 pessoas</span>
+          <span class="opcao-preco">R$ 1.400,00</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -738,23 +875,27 @@ const CONFIG = {
 
 
 
-  // Informações do Pacote Noite — usadas na mensagem do WhatsApp e no
+  // Informações do Pacote Festa Durante o Dia — usadas na mensagem do WhatsApp e no
   // cartão-resumo que aparece quando o cliente escolhe uma data.
   // Edite livremente para bater com o que está no seu site.
   pacote: {
-    nome: "Pacote Noite",
-    slogan: "uma noite mágica, completa e inesquecível",
-    precoOriginal: "R$ 2.000,00",
-    precoPromocional: "R$ 1.700,00",
-    percentualDesconto: "15%",
-    parcelamento: "até 12x no cartão (juros da máquina)",
-    regraReserva: "50% do valor total",
+    nome: "Pacote Festa Durante o Dia",
+    slogan: "com banho de piscina — uma festa completa e inesquecível sob o sol",
+    horario: "8h de evento — das 09:00 às 17:00 ou das 12:00 às 20:00",
+    horarioResumido: "8h de evento",
     destaques: [
-      "Decoração completa + Nome 3D",
-      "Mesas e cadeiras para até 60 pessoas",
-      "Serviço de mesa completo + 50 mimos",
-      "Pipoqueira, algodão doce e cama elástica"
-    ]
+      "Espaço reservado para o evento",
+      "Decoração completa",
+      "Mesas e cadeiras",
+      "Toalha de mesa",
+      "Centro de mesa simples",
+      "50 mimos simples cheio"
+    ],
+    // Preço de cada opção de convidados — usado no modal, no cartão-resumo e na mensagem do WhatsApp.
+    precos: {
+      40: { label: "Para 40 pessoas", valor: "R$ 1.000,00" },
+      60: { label: "Para 60 pessoas", valor: "R$ 1.400,00" }
+    }
   }
 };
 
@@ -884,7 +1025,8 @@ function formatarDiaSemana(chave){
 }
 
 // ---- Seleção de dia pelo cliente ----
-let dataSelecionada = null; // guarda a chave "AAAA-MM-DD" do dia clicado
+let dataSelecionada = null;   // guarda a chave "AAAA-MM-DD" do dia clicado
+let pessoasSelecionadas = null; // guarda 40 ou 60, escolhido no modal do pacote
 
 const btnWhatsapp = document.getElementById("btnWhatsapp");
 const tituloBotao = document.getElementById("tituloBotao");
@@ -894,9 +1036,17 @@ const cartaoResumo = document.getElementById("cartaoResumo");
 const resumoTagPacote = document.getElementById("resumoTagPacote");
 const resumoTitulo = document.getElementById("resumoTitulo");
 const resumoData = document.getElementById("resumoData");
-const resumoPrecoDe = document.getElementById("resumoPrecoDe");
+const resumoPessoas = document.getElementById("resumoPessoas");
 const resumoPrecoPor = document.getElementById("resumoPrecoPor");
 const fecharResumo = document.getElementById("fecharResumo");
+
+// ---- Modal do Pacote Dia: mostra as informações do pacote e pergunta 40 ou 60 pessoas ----
+const modalPacote = document.getElementById("modalPacote");
+const modalPacoteData = document.getElementById("modalPacoteData");
+const modalPacoteLista = document.getElementById("modalPacoteLista");
+const modalPacoteHorario = document.getElementById("modalPacoteHorario");
+const fecharModalPacoteBtn = document.getElementById("fecharModalPacote");
+const botoesPessoas = document.querySelectorAll(".opcao-pessoas");
 
 let resumoFechadoManualmente = false;
 
@@ -907,28 +1057,67 @@ function selecionarDia(elementoClicado, chave){
   // remove seleção de qualquer outro dia (só um dia selecionado por vez)
   document.querySelectorAll(".dia.selecionado").forEach(el => el.classList.remove("selecionado"));
 
+  // toda vez que a data muda, a escolha de 40/60 pessoas começa do zero
+  pessoasSelecionadas = null;
+
   if (jaEstavaSelecionado){
     dataSelecionada = null;
+    fecharModalPacote();
   } else {
     elementoClicado.classList.add("selecionado");
     dataSelecionada = chave;
     resumoFechadoManualmente = false;
+    abrirModalPacote(chave);
   }
 
   atualizarBotaoWhatsapp();
   atualizarCartaoResumo();
 }
 
+function abrirModalPacote(chave){
+  const p = CONFIG.pacote;
+  modalPacoteData.textContent = `${formatarDiaSemana(chave)}, ${formatarDataExtenso(chave)}`;
+  modalPacoteLista.innerHTML = p.destaques.map(item => `<li>${item}</li>`).join("");
+  modalPacoteHorario.textContent = p.horario;
+  botoesPessoas.forEach(btn => {
+    btn.classList.toggle("selecionada", Number(btn.dataset.pessoas) === pessoasSelecionadas);
+  });
+  modalPacote.classList.add("ativo");
+}
+
+function fecharModalPacote(){
+  modalPacote.classList.remove("ativo");
+}
+
+botoesPessoas.forEach(btn => {
+  btn.addEventListener("click", () => {
+    pessoasSelecionadas = Number(btn.dataset.pessoas);
+    fecharModalPacote();
+    atualizarBotaoWhatsapp();
+    atualizarCartaoResumo();
+  });
+});
+
+fecharModalPacoteBtn.addEventListener("click", fecharModalPacote);
+
+modalPacote.addEventListener("click", (e) => {
+  if (e.target === modalPacote) fecharModalPacote();
+});
+
 function atualizarBotaoWhatsapp(){
-  if (dataSelecionada){
+  if (dataSelecionada && pessoasSelecionadas){
     btnWhatsapp.classList.remove("sem-selecao");
     tituloBotao.textContent = "Confirmar essa data";
-    dataSelecionadaTexto.textContent = formatarDataExtenso(dataSelecionada);
+    dataSelecionadaTexto.textContent = `${formatarDataExtenso(dataSelecionada)} • ${pessoasSelecionadas} pessoas`;
 
-    // pequeno "aceno" no botão pra chamar atenção assim que uma data é escolhida
+    // pequeno "aceno" no botão pra chamar atenção assim que o pacote é escolhido
     btnWhatsapp.classList.remove("pulso");
     void btnWhatsapp.offsetWidth; // reinicia a animação mesmo se já tiver rodado
     btnWhatsapp.classList.add("pulso");
+  } else if (dataSelecionada && !pessoasSelecionadas){
+    btnWhatsapp.classList.add("sem-selecao");
+    tituloBotao.textContent = "Escolha o pacote";
+    dataSelecionadaTexto.textContent = "40 ou 60 pessoas?";
   } else {
     btnWhatsapp.classList.add("sem-selecao");
     tituloBotao.textContent = "Reservar dia";
@@ -941,10 +1130,18 @@ function atualizarCartaoResumo(){
 
   if (dataSelecionada && !resumoFechadoManualmente){
     resumoTagPacote.textContent = p.nome;
-    resumoTitulo.textContent = `${formatarDiaSemana(dataSelecionada)} disponível ✨`;
+    resumoTitulo.textContent = `${formatarDiaSemana(dataSelecionada)} disponível ☀️`;
     resumoData.textContent = formatarDataExtenso(dataSelecionada);
-    resumoPrecoDe.textContent = `De ${p.precoOriginal}`;
-    resumoPrecoPor.textContent = `por ${p.precoPromocional}`;
+
+    if (pessoasSelecionadas){
+      const info = p.precos[pessoasSelecionadas];
+      resumoPessoas.textContent = `${info.label} • ${p.horarioResumido}`;
+      resumoPrecoPor.textContent = info.valor;
+    } else {
+      resumoPessoas.textContent = "Toque aqui para escolher: 40 ou 60 pessoas";
+      resumoPrecoPor.textContent = "";
+    }
+
     cartaoResumo.classList.add("visivel");
   } else {
     cartaoResumo.classList.remove("visivel");
@@ -958,24 +1155,26 @@ fecharResumo.addEventListener("click", () => {
 
 // Monta a mensagem completa que vai para o WhatsApp: cumprimento, data
 // escolhida, pergunta sobre disponibilidade e um resumo caprichado do
-// Pacote Noite (destaques + valores + regra de reserva).
+// Pacote Festa Durante o Dia (destaques + horário + valores por quantidade de pessoas).
 function montarMensagemWhatsapp(chave, nomeCliente){
   const p = CONFIG.pacote;
   const dataExtenso = formatarDataExtenso(chave);
   const diaSemana = formatarDiaSemana(chave);
   const listaDestaques = p.destaques.map(item => `    ${item}`).join("\n");
+  const infoPessoas = p.precos[pessoasSelecionadas];
 
   return [
-    `Olá! Meu nome é *${nomeCliente}*. Vim pelo site e me apaixonei pelo *${p.nome}* — ${p.slogan}! `,
+    `Olá! Meu nome é *${nomeCliente}*. Vim pelo site e me interessei pelo *${p.nome}* — ${p.slogan}! `,
     ``,
-    ` Gostaria de verificar a data de *${dataExtenso}* (${diaSemana}).`,
+    ` Gostaria de verificar a data de *${dataExtenso}* (${diaSemana}), para uma festa de *${pessoasSelecionadas} pessoas*.`,
     `No calendário de vocês ela aparece como *disponível*, mas queria confirmar antes de garantir a reserva.`,
     ``,
     `O que mais me chamou atenção no pacote:`,
     listaDestaques,
     ``,
-    ` Vi o valor promocional: de ${p.precoOriginal} por *${p.precoPromocional}* (${p.percentualDesconto} de desconto), parcelado em ${p.parcelamento}.`,
-    ` Entendi que a reserva é feita com ${p.regraReserva} — podem me confirmar essa data e me explicar como seguimos?`,
+    ` ${p.horario}.`,
+    ` Vi o valor para *${pessoasSelecionadas} pessoas*: *${infoPessoas.valor}*.`,
+    ` Podem me confirmar essa data e me explicar como seguimos com a reserva?`,
     ``,
     `Fico no aguardo! Muito obrigado(a) `
   ].join("\n");
@@ -1031,12 +1230,18 @@ inputNomeCliente.addEventListener("keydown", (e) => {
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modalNome.classList.contains("ativo")) fecharModalNome();
+  if (e.key === "Escape" && modalPacote.classList.contains("ativo")) fecharModalPacote();
 });
 
-// Botão "Reservar dia": só abre o modal se houver uma data selecionada no calendário
+// Botão "Reservar dia": exige uma data selecionada e a escolha de 40/60 pessoas
 btnWhatsapp.addEventListener("click", () => {
   if (!dataSelecionada){
     alert("Selecione primeiro um dia disponível no calendário.");
+    return;
+  }
+
+  if (!pessoasSelecionadas){
+    abrirModalPacote(dataSelecionada);
     return;
   }
 
@@ -1044,8 +1249,13 @@ btnWhatsapp.addEventListener("click", () => {
 });
 
 // Clicar no cartão-resumo também dispara a mesma reserva pelo WhatsApp
+// (se o pacote ainda não foi escolhido, reabre a pergunta de 40/60 pessoas)
 cartaoResumo.addEventListener("click", (evento) => {
   if (evento.target === fecharResumo) return;
+  if (dataSelecionada && !pessoasSelecionadas){
+    abrirModalPacote(dataSelecionada);
+    return;
+  }
   btnWhatsapp.click();
 });
 
